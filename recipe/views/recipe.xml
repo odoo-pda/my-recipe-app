@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <record model="ir.actions.act_window" id="open_recipes">
+    <field name="name">Recipes</field>
+    <field name="res_model">recipe.book</field>
+    <field name="view_mode">tree,form</field>
+  </record>
+
+  <menuitem name="Recipes" id="menu_root_recipes" action="open_recipes" web_icon="recipe,static/description/icon.png" groups="base.group_user"/>
+
+</odoo>
