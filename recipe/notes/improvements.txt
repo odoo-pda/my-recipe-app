@@ -1,0 +1,2 @@
+1. combiner les recettes entre elles (ex: recette tacos maison pour recette des tacos à la mexicaine)
+2. pouvoir sélectionner les ingrédients dont on a besoin pour les ajouter à sa liste de courses. Vérifier l'ensemble des ingrédients générés et pouvoir l'adapter. 

@@ -7,10 +7,13 @@ class RecipeBook(models.Model):
 
     name = fields.Char()
     recipe_type = fields.Selection([('starter','Starter'),('course','Course'),('dessert','Dessert')])
+    season_ids = fields.Many2many('recipe.season')
+    image = fields.Binary()
+    time = fields.Float()
+
+    description = fields.Text()
 
     ingredient_table_ids = fields.One2many('recipe.ingredient.table', 'recipe_id')
-    season_ids = fields.Many2many('recipe.season')
-
 
 
 class RecipeIngredientTable(models.Model):

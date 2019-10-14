@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_recipe_book,access_recipe_book,model_recipe_book,base.group_user,1,1,1,1
+access_recipe_ingredient_table,access_recipe_ingredient_table,model_recipe_ingredient_table,base.group_user,1,1,1,1
+access_recipe_ingredient,access_recipe_ingredient,model_recipe_ingredient,base.group_user,1,1,1,1
+access_recipe_season,access_recipe_season,model_recipe_season,base.group_user,1,1,1,1

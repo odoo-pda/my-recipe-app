@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="view_recipe_book_form" model="ir.ui.view">
+      <field name="name">view.recipe.book.form</field>
+      <field name="model">recipe.book</field>
+      <field name="arch" type="xml">
+        <form string="Recipes">
+          <header>
+            <!-- <button name="action_plan_meal" string="Plan Meal" type="object" class="oe_highlight"/> -->
+            <!-- <field name="stage_id" widget="statusbar" options="{'clickable': '1', 'fold_field': 'fold'}"/> -->
+          </header>
+          <sheet>
+            <div class="oe_title">
+              <h1>
+                <field name="name" placeholder="Recipe Name..."/>
+              </h1>
+            </div>
+            <group>
+              <group>
+                <h2>
+                  <field name="recipe_type" string="Type of Recipe"/>
+                  <field name="season_ids" string="Seasons" widget="many2many_tags"/>
+                </h2>
+                <field name="time" string="Time" widget="float_time"/>
+              </group>
+              <group>
+                <field name="image" widget="image"/>
+              </group>
+            </group>
+            <group>
+            </group>
+            <notebook>
+              <page name="description" string="Description">
+              <field name="description"/>
+              </page>
+              <page name="ingredients" string="Ingredients">
+                <field name="ingredient_table_ids" string="Ingredients"/>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_recipe_ingredient_table_tree" model="ir.ui.view">
+      <field name="name">view.recipe.ingredient.table.tree</field>
+      <field name="model">recipe.ingredient.table</field>
+      <field name="arch" type="xml">
+        <tree string="Ingredients" editable="bottom">
+          <field name="quantity"/>
+          <field name="uom"/>
+          <field name="ingredient_id"/>
+        </tree>
+      </field>
+    </record>
+
   <record model="ir.actions.act_window" id="open_recipes">
     <field name="name">Recipes</field>
     <field name="res_model">recipe.book</field>

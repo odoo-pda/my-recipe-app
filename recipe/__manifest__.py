@@ -21,7 +21,8 @@
     ],
 
     'data': [
-        'views/recipe.xml'
+        'views/recipe.xml',
+        'security/ir.model.access.csv',
 
     ],
 
