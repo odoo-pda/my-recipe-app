@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <record id="view_recipe_book_form" model="ir.ui.view">
-      <field name="name">view.recipe.book.form</field>
-      <field name="model">recipe.book</field>
+    <record id="view_recipe_recipe_form" model="ir.ui.view">
+      <field name="name">view.recipe.recipe.form</field>
+      <field name="model">recipe.recipe</field>
       <field name="arch" type="xml">
         <form string="Recipes">
           <header>
@@ -16,30 +16,56 @@
                 <field name="name" placeholder="Recipe Name..."/>
               </h1>
             </div>
-            <group>
-              <group>
-                <h2>
-                  <field name="recipe_type" string="Type of Recipe"/>
-                  <field name="season_ids" string="Seasons" widget="many2many_tags"/>
-                </h2>
-                <field name="time" string="Time" widget="float_time"/>
+            <group> 
+              <group> 
+                <field name="recipe_type_ids" widget="many2many_tags"/>
+                <field name="season_ids" widget="many2many_tags"/>
+                <field name="time" widget="float_time"/>
+                <field name="preparation_time" widget="float_time"/>
+                <field name="cooking_time" widget="float_time"/>
+                <field name="shelf_life_time"/>
+                <field name="nb_portions"/>
               </group>
-              <group>
+              <group> 
                 <field name="image" widget="image"/>
               </group>
             </group>
-            <group>
-            </group>
+            <!-- <group>
+            </group> -->
             <notebook>
-              <page name="description" string="Description">
+              <page name="description" string="Instructions">
               <field name="description"/>
               </page>
               <page name="ingredients" string="Ingredients">
-                <field name="ingredient_table_ids" string="Ingredients"/>
+                <field name="ingredient_table_ids"/>
               </page>
             </notebook>
           </sheet>
         </form>
+      </field>
+    </record>
+
+    <record id="view_recipe_recipe_tree" model="ir.ui.view">
+      <field name="name">view.recipe.recipe.tree</field>
+      <field name="model">recipe.recipe</field>
+      <field name="arch" type="xml">
+        <tree string="Recipes">
+          <field name="name"/>
+          <field name="recipe_type_ids" widget="many2many_tags"/>
+          <field name="season_ids" widget="many2many_tags"/>
+          <field name="time" widget="float_time"/>
+        </tree>
+      </field>
+    </record>
+
+
+    <record id="view_recipe_type_tree" model="ir.ui.view">
+      <field name="name">view.recipe.type.tree</field>
+      <field name="model">recipe.type</field>
+      <field name="arch" type="xml">
+        <tree string="Ingredients" editable="bottom">
+          <field name="name"/>
+        </tree>
       </field>
     </record>
 
@@ -49,18 +75,37 @@
       <field name="arch" type="xml">
         <tree string="Ingredients" editable="bottom">
           <field name="quantity"/>
-          <field name="uom"/>
+          <field name="uom_id"/>
           <field name="ingredient_id"/>
         </tree>
       </field>
     </record>
 
+
+    <record id="view_recipe_ingredient_form" model="ir.ui.view">
+      <field name="name">view.recipe.ingredient.form</field>
+      <field name="model">recipe.ingredient</field>
+      <field name="arch" type="xml">
+        <form string="Ingredient">
+          <field name="name"/>
+        </form>
+      </field>
+    </record> 
+
   <record model="ir.actions.act_window" id="open_recipes">
     <field name="name">Recipes</field>
-    <field name="res_model">recipe.book</field>
+    <field name="res_model">recipe.recipe</field>
     <field name="view_mode">tree,form</field>
   </record>
 
+  <record model="ir.actions.act_window" id="open_recipe_type">
+    <field name="name">Recipe Types</field>
+    <field name="res_model">recipe.type</field>
+    <field name="view_mode">tree</field>
+  </record>
+
   <menuitem name="Recipes" id="menu_root_recipes" action="open_recipes" web_icon="recipe,static/description/icon.png" groups="base.group_user"/>
+  <menuitem name="Recipe Types" id="menu_recipe_type" action="open_recipe_type" parent="menu_root_recipes" groups="base.group_user"/>
+
 
 </odoo>
