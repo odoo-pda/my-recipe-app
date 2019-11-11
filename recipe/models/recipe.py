@@ -5,6 +5,7 @@ from odoo.exceptions import Warning
 class RecipeBook(models.Model):
     _name = 'recipe.recipe'
     _description = 'Recipe'
+    _inherit = 'mail.thread'
 
     name = fields.Char()
     recipe_type_ids = fields.Many2many('recipe.type', string="Type of Recipe")
