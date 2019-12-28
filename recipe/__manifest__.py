@@ -16,9 +16,7 @@
     'category': 'Uncategorized',
     'version': '0.0.1',
 
-    'depends': ['mail'
-    
-    ],
+    'depends': [],
 
     'data': [
         'views/recipe.xml',
