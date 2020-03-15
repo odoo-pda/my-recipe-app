@@ -13,12 +13,13 @@
           <sheet>
             <div class="oe_title">
               <h1>
-                <field name="name" placeholder="Recipe Name..."/>
+                <field name="name" placeholder="Nom de la recette..."/>
               </h1>
             </div>
             <group> 
               <group> 
                 <field name="recipe_type_ids" widget="many2many_tags"/>
+                <field name="cooking_type" widget="many2many_tags"/>
                 <field name="season_ids" widget="many2many_tags"/>
                 <field name="time" widget="float_time"/>
                 <field name="preparation_time" widget="float_time"/>
@@ -91,19 +92,19 @@
     </record> 
 
   <record model="ir.actions.act_window" id="open_recipes">
-    <field name="name">Recipes</field>
+    <field name="name">Recettes</field>
     <field name="res_model">recipe.recipe</field>
     <field name="view_mode">tree,form</field>
   </record>
 
   <record model="ir.actions.act_window" id="open_recipe_type">
-    <field name="name">Recipe Types</field>
+    <field name="name">Types de Recettes</field>
     <field name="res_model">recipe.type</field>
     <field name="view_mode">tree</field>
   </record>
 
-  <menuitem name="Recipes" id="menu_root_recipes" action="open_recipes" web_icon="recipe,static/description/icon.png" groups="base.group_user"/>
-  <menuitem name="Recipe Types" id="menu_recipe_type" action="open_recipe_type" parent="menu_root_recipes" groups="base.group_user"/>
+  <menuitem name="Recettes" id="menu_root_recipes" action="open_recipes" web_icon="recipe,static/description/icon.png" groups="base.group_user"/>
+  <menuitem name="Types de Recettes" id="menu_recipe_type" action="open_recipe_type" parent="menu_root_recipes" groups="base.group_user"/>
 
 
 </odoo>

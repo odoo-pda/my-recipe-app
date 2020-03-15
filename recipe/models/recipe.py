@@ -6,7 +6,7 @@ class RecipeBook(models.Model):
     _name = 'recipe.recipe'
     _description = 'Recipe'
 
-    name = fields.Char()
+    name = fields.Char(string="Nom")
     recipe_type_ids = fields.Many2many('recipe.type', string="Type de Recette")
     season_ids = fields.Many2many('recipe.season', string="Saisons")
     image = fields.Binary()
@@ -31,7 +31,7 @@ class RecipeType(models.Model):
     _name = 'recipe.type'
     _description = 'Type of Recipe'
 
-    name = fields.Char()
+    name = fields.Char(string="Nom")
 
 
 class RecipeCookingType(models.Model):
@@ -55,7 +55,7 @@ class RecipeIngredient(models.Model):
     _name = 'recipe.ingredient'
     _description = 'Ingredients'
 
-    name = fields.Char()
+    name = fields.Char(string="Nom")
     ingredient_table_ids = fields.One2many('recipe.ingredient.table', 'ingredient_id')
     ingredient_type = fields.Many2one('recipe.ingredient.type', string="Type d'ingrédient")
 
@@ -64,18 +64,18 @@ class RecipeIngredientType(models.Model):
     _name = 'recipe.ingredient.type'
     _description = 'Type of Ingredients'
 
-    name = fields.Char()
+    name = fields.Char(string="Nom")
 
 
 class RecipeIngredientUom(models.Model):
     _name = 'recipe.ingredient.uom'
     _description = 'Units of Mesure'
 
-    name = fields.Char()
+    name = fields.Char(string="Nom")
 
 
 class RecipeSeason(models.Model):
     _name = 'recipe.season'
     _description = 'Seasons'
 
-    name = fields.Char()
+    name = fields.Char(string="Nom")
