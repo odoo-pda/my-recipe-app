@@ -7,18 +7,19 @@ class RecipeBook(models.Model):
     _description = 'Recipe'
 
     name = fields.Char()
-    recipe_type_ids = fields.Many2many('recipe.type', string="Type of Recipe")
-    season_ids = fields.Many2many('recipe.season', string="Seasons")
+    recipe_type_ids = fields.Many2many('recipe.type', string="Type de Recette")
+    season_ids = fields.Many2many('recipe.season', string="Saisons")
     image = fields.Binary()
-    time = fields.Float(compute='_compute_time', string="Time")
-    preparation_time = fields.Float()
-    cooking_time = fields.Float()
-    shelf_life_time = fields.Char()
+    time = fields.Float(compute='_compute_time', string="Timing")
+    preparation_time = fields.Float(string="Temps de préparation")
+    cooking_time = fields.Float(string="Temps de cuisson")
+    shelf_life_time = fields.Char(string="Durée de conservation")
     nb_portions = fields.Integer(string="Number of Portions")
+    cooking_type = fields.Many2many('recipe.cooking.type', string="Type de Cuisine")
 
     description = fields.Text(string="Instructions")
 
-    ingredient_table_ids = fields.One2many('recipe.ingredient.table', 'recipe_id')
+    ingredient_table_ids = fields.One2many('recipe.ingredient.table', 'recipe_id', string="Ingrédients")
 
     @api.depends('preparation_time', 'cooking_time')
     def _compute_time(self):
@@ -33,14 +34,21 @@ class RecipeType(models.Model):
     name = fields.Char()
 
 
+class RecipeCookingType(models.Model):
+    _name = 'recipe.cooking.type'
+    _description = 'Type of Cooking'
+
+    name = fields.Char()
+
+
 class RecipeIngredientTable(models.Model):
     _name = 'recipe.ingredient.table'
     _description = 'Table of Ingredients'
 
-    recipe_id = fields.Many2one('recipe.recipe')
-    ingredient_id = fields.Many2one('recipe.ingredient')
-    quantity = fields.Float()
-    uom_id = fields.Many2one('recipe.ingredient.uom')    
+    recipe_id = fields.Many2one('recipe.recipe', string="Recette")
+    ingredient_id = fields.Many2one('recipe.ingredient', string="Ingrédient")
+    quantity = fields.Float(string="Quantité")
+    uom_id = fields.Many2one('recipe.ingredient.uom', string="UOM")    
 
 
 class RecipeIngredient(models.Model):
@@ -48,8 +56,15 @@ class RecipeIngredient(models.Model):
     _description = 'Ingredients'
 
     name = fields.Char()
-
     ingredient_table_ids = fields.One2many('recipe.ingredient.table', 'ingredient_id')
+    ingredient_type = fields.Many2one('recipe.ingredient.type', string="Type d'ingrédient")
+
+
+class RecipeIngredientType(models.Model):
+    _name = 'recipe.ingredient.type'
+    _description = 'Type of Ingredients'
+
+    name = fields.Char()
 
 
 class RecipeIngredientUom(models.Model):
