@@ -4,12 +4,23 @@
 4. ajouter days pour ma recette. 
 5. lier des ingrédients entre eux. Courge peut être équivalent à Courge Butternut, Potiron, ...
 6. vue tree de recipe.recipe, inclure la date de dernière fois cuisinée et une action pour ajouter au menu de la semaine.
-7. champ compute pour temps total (prepa + cuisson)
 8. 3 étoiles pour noter la recette (vue form et list)
 9. Mettre + en évidence Type de recette et saison en dessous du titre en + grand. 
-10. hauteur max sur les photos.
+10. hauteur max sur les photos. 500x500
 11. move datas for uom to uom_id
 12. automatiser les sauvegardes sur vps + autre vps? 
 13. mettre la db sur le vps pour un accès distant.
 14. comment traduire l'ensemble des termes menu, nom de page ds notebook, summer, etc en français?
 15. choisir pour combien de personnes on fait la recette lors de l'ajout à la liste de course.
+16. Recette par ingrédients
+17. Vue kanban largeur 100% avec liste des ingrédients en version texte. Plus photo. 
+18. Recherche possible dans les ingrédients directe
+19. Ajout des favoris et data saisons
+20. Recherche "et" sur plusieurs ingrédients? 
+...
+
+
+
+BUGFIX
+------
+- recherche par ingrédients -> toujours les 6 mêmes recettes trouvées peu importe les ingrédients.  

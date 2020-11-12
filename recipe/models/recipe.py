@@ -8,8 +8,9 @@ class RecipeBook(models.Model):
 
     name = fields.Char(string="Nom")
     recipe_type_ids = fields.Many2many('recipe.type', string="Type de Recette")
+    main_type_id = fields.Many2one('recipe.type', compute='_compute_main_type_id', store=True)
     season_ids = fields.Many2many('recipe.season', string="Saisons")
-    image = fields.Binary()
+    image = fields.Binary("Image", attachment=True)
     time = fields.Float(compute='_compute_time', string="Timing")
     preparation_time = fields.Float(string="Temps de préparation")
     cooking_time = fields.Float(string="Temps de cuisson")
@@ -21,6 +22,18 @@ class RecipeBook(models.Model):
 
     ingredient_table_ids = fields.One2many('recipe.ingredient.table', 'recipe_id', string="Ingrédients")
 
+    @api.depends('recipe_type_ids')
+    def _compute_main_type_id(self):
+        for rec in self:
+            if rec.env.ref('recipe_data.recipe_type_main_dish') in rec.recipe_type_ids:
+                rec.main_type_id = rec.env.ref('recipe_data.recipe_type_main_dish')
+            elif rec.env.ref('recipe_data.recipe_type_starter') in rec.recipe_type_ids:
+                rec.main_type_id = rec.env.ref('recipe_data.recipe_type_starter')
+            elif rec.env.ref('recipe_data.recipe_type_dessert') in rec.recipe_type_ids:
+                rec.main_type_id = rec.env.ref('recipe_data.recipe_type_dessert')
+            else:
+                rec.main_type_id = rec.env.ref('recipe_data.recipe_type_other')
+                
     @api.depends('preparation_time', 'cooking_time')
     def _compute_time(self):
         for rec in self:
@@ -44,6 +57,7 @@ class RecipeCookingType(models.Model):
 class RecipeIngredientTable(models.Model):
     _name = 'recipe.ingredient.table'
     _description = 'Table of Ingredients'
+    _rec_name = 'ingredient_id'
 
     recipe_id = fields.Many2one('recipe.recipe', string="Recette")
     ingredient_id = fields.Many2one('recipe.ingredient', string="Ingrédient")

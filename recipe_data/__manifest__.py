@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "recipe",
+    'name': "recipe data",
 
     'summary': """
         Short (1 phrase/line) summary of the module's purpose, used as
@@ -16,11 +16,10 @@
     'category': 'Uncategorized',
     'version': '0.0.1',
 
-    'depends': ['recipe_data'],
+    'depends': [],
 
     'data': [
-        'views/recipe.xml',
-        'security/ir.model.access.csv',
+        'data/data.xml',
 
     ],
 
