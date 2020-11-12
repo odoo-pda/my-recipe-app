@@ -20,12 +20,13 @@
               <group> 
                 <field name="recipe_type_ids" widget="many2many_tags"/>
                 <field name="cooking_type" widget="many2many_tags"/>
-                <field name="season_ids" widget="many2many_tags"/>
+                <field name="season_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                 <field name="time" widget="float_time"/>
                 <field name="preparation_time" widget="float_time"/>
                 <field name="cooking_time" widget="float_time"/>
                 <field name="shelf_life_time"/>
                 <field name="nb_portions"/>
+                <field name="author"/>
               </group>
               <group> 
                 <field name="image" widget="image"/>
@@ -36,7 +37,7 @@
               <field name="description"/>
               </page>
               <page name="ingredients" string="Ingrédients">
-                <field name="ingredient_table_ids" widget="one2many_list"><!--context="{'show_attribute': False}"-->
+                <field name="ingredient_table_ids" widget="one2many_list">
                     <tree string="Ingrédients" editable="bottom">
                         <field name="quantity"/>
                         <field name="uom_id"/>
@@ -54,22 +55,11 @@
       <field name="name">view.recipe.recipe.tree</field>
       <field name="model">recipe.recipe</field>
       <field name="arch" type="xml">
-        <tree string="Recipes">
+        <tree string="Recipes" default_order="name">
           <field name="name"/>
           <field name="recipe_type_ids" widget="many2many_tags"/>
-          <field name="season_ids" widget="many2many_tags"/>
+          <field name="season_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
           <field name="time" widget="float_time"/>
-        </tree>
-      </field>
-    </record>
-
-
-    <record id="view_recipe_type_tree" model="ir.ui.view">
-      <field name="name">view.recipe.type.tree</field>
-      <field name="model">recipe.type</field>
-      <field name="arch" type="xml">
-        <tree string="Ingredients" editable="bottom">
-          <field name="name"/>
         </tree>
       </field>
     </record>
@@ -79,16 +69,19 @@
         <field name="model">recipe.recipe</field>
         <field name="arch" type="xml">
             <kanban class="o_res_partner_kanban">
+                <field name="id"/>
                 <templates>
                     <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
-                            <img class="o_kanban_image" t-att-src="kanban_image('recipe.recipe', 'image', raw_value)" t-att-alt="record.name"/>
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban" style="flex: none; width: 32%">
+                            <img style="width: 150px" class="mr-3"
+                                t-att-src="kanban_image('recipe.recipe', 'image', record.id.raw_value)" 
+                                t-att-alt="record.name"/>
                             <div class="oe_kanban_details">
                                 <strong class="o_kanban_record_title"><field name="name"/></strong>
                                 <div class="o_kanban_tags_section"/>
                                 <ul>
                                     <li t-if="record.main_type_id.raw_value"><field name="main_type_id"/></li>
-                                    <li t-if="record.season_ids.raw_value"><field name="season_ids"/></li>
+                                    <li t-if="record.season_ids.raw_value"><field name="season_ids" options="{'color_field': 'color'}"/></li>
                                     <li t-if="record.time.raw_value">Durée : <field name="time" widget="float_time"/></li>
                                     <br/>
                                     <li t-if="record.ingredient_table_ids.raw_value">Ingrédients : <field name="ingredient_table_ids" widget="many2many_tags"/></li>
@@ -101,16 +94,32 @@
         </field>
     </record>
 
+    <record id="view_recipe_search" model="ir.ui.view">
+            <field name="name">view.recipe.search</field>
+            <field name="model">recipe.recipe</field>
+            <field name="arch" type="xml">
+                <search string="Search Recipes">
+                    <field name="name" string="Nom"/>
+                    <field name="season_ids" string="Saison"/>
+                    <field name="ingredient_table_ids" string="Ingrédient"/>
+                    <field name="recipe_type_ids" string="Type de recette"/>
+                    <field name="cooking_type" string="Type de cuisine"/>
+                </search>
+            </field>
+        </record>
 
-    <record id="view_recipe_ingredient_form" model="ir.ui.view">
-      <field name="name">view.recipe.ingredient.form</field>
-      <field name="model">recipe.ingredient</field>
+
+    <record id="view_recipe_type_tree" model="ir.ui.view">
+      <field name="name">view.recipe.type.tree</field>
+      <field name="model">recipe.type</field>
       <field name="arch" type="xml">
-        <form string="Ingredient">
+        <tree string="Type de recettes" editable="bottom">
           <field name="name"/>
-        </form>
+          <field name="is_principal"  widget="checkbox"/>
+          <field name="sequence"/>
+        </tree>
       </field>
-    </record> 
+    </record>
 
   <record model="ir.actions.act_window" id="open_recipes">
     <field name="name">Recettes</field>

@@ -5,6 +5,5 @@ access_recipe_ingredient,access_recipe_ingredient,model_recipe_ingredient,base.g
 access_recipe_season,access_recipe_season,model_recipe_season,base.group_user,1,1,1,1
 access_recipe_ingredient_uom,access_recipe_ingredient_uom,model_recipe_ingredient_uom,base.group_user,1,1,1,1
 access_recipe_type,access_recipe_type,model_recipe_type,base.group_user,1,1,1,1
-access_recipe_ingredient_type,access_recipe_ingredient_type,model_recipe_ingredient_type,base.group_user,1,1,1,1
 access_recipe_cooking_type,access_recipe_cooking_type,model_recipe_cooking_type,base.group_user,1,1,1,1
 

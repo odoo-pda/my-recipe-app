@@ -16,10 +16,11 @@
     'category': 'Uncategorized',
     'version': '0.0.1',
 
-    'depends': ['recipe_data'],
+    'depends': [],
 
     'data': [
         'views/recipe.xml',
+        'views/ingredient.xml',
         'security/ir.model.access.csv',
 
     ],
