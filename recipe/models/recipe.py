@@ -8,7 +8,7 @@ class RecipeBook(models.Model):
 
     name = fields.Char(string="Nom")
     recipe_type_ids = fields.Many2many('recipe.type', string="Type de Recette")
-    main_type_id = fields.Many2one('recipe.type', compute='_compute_main_type_id')
+    main_type_id = fields.Many2one('recipe.type', compute='_compute_main_type_id', store=True)
     season_ids = fields.Many2many('recipe.season', string="Saisons")
     image = fields.Binary("Image", attachment=True)
     time = fields.Float(compute='_compute_time', string="Timing")
@@ -21,7 +21,7 @@ class RecipeBook(models.Model):
     ingredient_table_ids = fields.One2many('recipe.ingredient.table', 'recipe_id', string="Ingrédients")
     author = fields.Char(string="Copyright")
 
-    @api.depends('recipe_type_ids')
+    @api.depends('recipe_type_ids.is_principal', 'recipe_type_ids.sequence')
     def _compute_main_type_id(self):
         for rec in self:
             rec.main_type_id = rec.recipe_type_ids.filtered(lambda t: t.is_principal)[:1]
